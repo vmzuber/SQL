@@ -58,13 +58,13 @@ FROM superstore;
 SELECT item_id AS "Item ID", item_name AS "Item Name", category, price
 FROM superstore
 WHERE category = 'Kitchen Supplies'
-ORDER BY price DESC
+ORDER BY price DESC;
 
 
 --average price of items in category "Kitchen Supplies"
 SELECT AVG(price)
 FROM superstore
-WHERE CATEGORY = 'Kitchen Supplies'
+WHERE CATEGORY = 'Kitchen Supplies';
 --avg price = $58.61
 
 
@@ -72,18 +72,18 @@ WHERE CATEGORY = 'Kitchen Supplies'
 SELECT item_id AS "Item ID", item_name AS "Item Name", stock_quantity AS "# in Stock"
 FROM superstore
 WHERE category = 'Kitchen Supplies'
-ORDER BY stock_quantity ASC
+ORDER BY stock_quantity ASC;
 
 
 --avg rating for each item in "Kitchen Supplies"
 SELECT item_id AS "Item ID", item_name AS "Item Name", average_rating AS "Avg Rating"
 FROM superstore
 WHERE category = 'Kitchen Supplies'
-ORDER BY average_rating DESC
+ORDER BY average_rating DESC;
 --highest rated item in "Kitchen Supplies" = Premium coffee maker 4.9
 
 
 --highest rated item in each category in superstore
 SELECT item_id AS "Item ID", item_name AS "Item Name", category, MAX(average_rating) AS "Avg Rating"
 FROM superstore
-GROUP BY category
+GROUP BY category;
