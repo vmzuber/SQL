@@ -59,9 +59,9 @@ VALUES
 
 
 
-  # Analysis
+# Analysis
     
---MATERNITY LEAVE ANALYSIS
+# MATERNITY LEAVE ANALYSIS
 --explore all of the data from fortune_companies
 SELECT * FROM fortune_companies;
 
@@ -93,7 +93,7 @@ ORDER BY ROUND(AVG(maternity_leave_weeks), 1) desc;
 --LEAST maternity leave = Energy & Finance
 
 
---PAID TIME OFF ANALYSIS
+# PAID TIME OFF ANALYSIS
 --find average PTO in each industry
 SELECT company_name, industry, ROUND(AVG(paid_time_off_days), 1) AS "Avg PTO"
 FROM fortune_companies
@@ -140,7 +140,7 @@ AND healthcare_benefits =1
 ORDER BY paid_time_off_days;
 
 
---COMBO ANALYSIS
+# COMBO ANALYSIS
 --find companies with higher than average maternity leave and higher than average PTO
 SELECT company_name, industry, paid_time_off_days, maternity_leave_weeks
 FROM fortune_companies
