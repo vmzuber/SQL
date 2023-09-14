@@ -1,4 +1,5 @@
-# This analysis utilized the following Netflix dataset:
+# This project reveals insights about TV and Movie content hosted on Netflix. 
+# The project was written using the PostgreSQL dialect and utilized data from the following two Netflix datasets:
 
 CREATE TABLE netflix_titles_info
     ("show_id" varchar(5), "type" varchar(7), "title" varchar(58), "country" varchar(74), "date_added" timestamp, "release_year" int, "rating" varchar(5), "duration" varchar(9), "listed_in" varchar(74))
@@ -58,7 +59,9 @@ VALUES
     ('s20', NULL, 'Blanca SuÃ¡rez| IvÃ¡n Marcos| Ã“scar Casas| AdriÃ¡n Lastra| Francesc Garrido| Stefan Weinert| Julia MÃ¶ller| Alicia Chojnowski')
     ;
 
-# ANALYSIS
+
+
+# The following SQL was written to answer specific questions about the content on Netflix:
 
 --explore data from tables
 SELECT * FROM "netflix_titles_info" LIMIT 5;
@@ -101,13 +104,13 @@ ORDER BY release_year ASC
 LIMIT 5;
 --oldest movie is Sankofa, 1993 released
 
---OR use subquery for the last question to be more precise:
-SELECT title, release_year
-FROM "netflix_titles_info"
-WHERE type = 'Movie' AND release_year <=
-  (SELECT MIN(release_year)
-  FROM "netflix_titles_info"
-  WHERE type = 'Movie');
+    --OR use subquery for the last question to be more precise:
+    SELECT title, release_year
+    FROM "netflix_titles_info"
+    WHERE type = 'Movie' AND release_year <=
+      (SELECT MIN(release_year)
+      FROM "netflix_titles_info"
+      WHERE type = 'Movie');
 
 
 
