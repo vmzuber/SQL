@@ -1,3 +1,11 @@
+#This analysis utilizes dataset with information about a company's monthly sales (dataset too large to fit here):
+    #Tables include: customers, JanSales, FebSales, MarSales, AprSales, MaySales
+        #columns include: 
+            #Table "customers" (acctnum, order_id)
+            #Table "JanSales" and other Sales tables (orderID, product, quantity, price, orderdate, location)
+
+#ANALYSIS
+
 --Use to filter and exclude order IDs that are not correct in the customers table of this dataset:
 --WHERE length(orderid) = 6
 --AND orderid <> 'Order ID'
@@ -40,14 +48,14 @@ ORDER BY price ASC LIMIT 1;
 SELECT Product, ROUND(SUM(quantity)*price, 2) AS "Total Revenue"
 FROM JanSales
 GROUP BY product
-ORDER BY "Total Revenue" DESC
+ORDER BY "Total Revenue" DESC;
 
 
 --Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 SELECT Product, SUM(quantity) AS "Total Sold", ROUND(SUM(quantity)*price, 2) AS "Amount Spent", location
 FROM FebSales
 WHERE location = '548 Lincoln St, Seattle, WA 98101'
-GROUP BY product
+GROUP BY product;
 --AA batteries (4-pack) - 2 sold, total = $7.68
 
 
@@ -57,7 +65,7 @@ FROM customers AS c
 INNER JOIN FebSales AS f ON(c.order_id = f.orderID)
 WHERE f.Quantity > 2
 AND length(orderid) = 6
-AND orderid <> 'Order ID'
+AND orderid <> 'Order ID';
 
 
 
