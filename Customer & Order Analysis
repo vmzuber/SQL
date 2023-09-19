@@ -1,0 +1,67 @@
+--Use to filter and exclude order IDs that are not correct in the customers table of this dataset:
+--WHERE length(orderid) = 6
+--AND orderid <> 'Order ID'
+
+--How many orders were placed in January?
+SELECT COUNT(orderid) AS "Total Orders in Jan"
+FROM JanSales
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID';
+--Total = 9681 
+
+
+--How many of the January orders were for iPhones?
+SELECT COUNT(orderid) AS "Total iPhones"
+FROM JanSales
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+AND Product = 'iPhone';
+--Total = 379 iPhones
+
+
+--Select the customer account numbers for all the orders that were placed in February:
+SELECT DISTINCT c.acctnum
+FROM customers AS c
+INNER JOIN FebSales AS f ON(c.order_id = f.orderID)
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID';
+
+
+--Which product was the cheapest one sold in January, and what was the price?
+SELECT product, MIN(price) AS "Cheapest Price"
+FROM JanSales
+GROUP BY product, price
+ORDER BY price ASC LIMIT 1;
+--AAA batteries (4-pack) for $2.99
+
+
+--What is the total revenue for each product sold in January?
+--Revenue = # of product sold * price of product
+SELECT Product, ROUND(SUM(quantity)*price, 2) AS "Total Revenue"
+FROM JanSales
+GROUP BY product
+ORDER BY "Total Revenue" DESC
+
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT Product, SUM(quantity) AS "Total Sold", ROUND(SUM(quantity)*price, 2) AS "Amount Spent", location
+FROM FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product
+--AA batteries (4-pack) - 2 sold, total = $7.68
+
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+SELECT COUNT(DISTINCT c.acctnum) AS "# customers", ROUND(AVG(quantity*price), 2) AS "Amount Spent"
+FROM customers AS c
+INNER JOIN FebSales AS f ON(c.order_id = f.orderID)
+WHERE f.Quantity > 2
+AND length(orderid) = 6
+AND orderid <> 'Order ID'
+
+
+
+
+
+
+
