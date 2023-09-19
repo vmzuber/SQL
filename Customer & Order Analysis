@@ -1,8 +1,8 @@
-#This analysis utilizes dataset with information about a company's monthly sales (dataset too large to fit here):
+#This analysis utilizes a dataset with information about a company's monthly sales (dataset too large to fit here):
     #Tables include: customers, JanSales, FebSales, MarSales, AprSales, MaySales
-        #columns include: 
-            #Table "customers" (acctnum, order_id)
-            #Table "JanSales" and other Sales tables (orderID, product, quantity, price, orderdate, location)
+        #Columns include: 
+            #In table "customers" (acctnum, order_id)
+            #In table "JanSales" and other Sales tables (orderID, product, quantity, price, orderdate, location)
 
 #ANALYSIS
 
@@ -73,6 +73,40 @@ SELECT Product, SUM(Quantity) AS "Total Sold", location
 FROM FebSales 
 WHERE location LIKE '%Los Angeles%'
 GROUP BY Product;
+
+
+--Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+SELECT DISTINCT location, COUNT(orderID) AS "# of Orders"
+FROM JanSales
+WHERE location LIKE '%NY%'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+GROUP BY location
+HAVING "# of Orders" >= 3;
+
+--How many of each type of headphone were sold in February?
+SELECT Product, SUM(quantity) AS "# Sold"
+FROM FebSales
+WHERE Product LIKE '%headphone%'
+GROUP BY Product;
+
+
+--What was the average amount spent on orders in February?
+SELECT AVG(f.quantity*f.price) AS "Average"
+FROM FebSales as f
+INNER JOIN customers as c ON(f.orderID = c.order_id)
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
+--AVG spent = $190.00
+
+
+--Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT Product, ROUND(SUM(quantity*price),2) AS "Total Revenue"
+FROM JanSales
+GROUP BY Product
+ORDER BY "Total Revenue" DESC
+LIMIT 1;
+--Macbook Pro Laptop with revenue = $399,500.00
 
 
 
