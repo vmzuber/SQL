@@ -1,4 +1,7 @@
 # This dataset contains data about the top 50 songs in 2021 from the Spotify music platform:
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
 
 #TABLE CREATION
 
@@ -21,6 +24,10 @@ CREATE TABLE BIT_DB.Spotifydata (
   tempo decimal(6,3) NOT NULL,
   duration_ms integer NOT NULL,
   time_signature integer NOT NULL )
+
+
+#Then I inserted the Spotify Data .csv into the table.
+#Next, I explored the data using the following SQL. 
 
 
 #ANALYSIS
