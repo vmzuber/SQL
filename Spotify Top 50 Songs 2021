@@ -64,3 +64,31 @@ FROM (SELECT artist_name, track_name, popularity, danceability
     FROM Spotifydata 
     ORDER BY popularity DESC 
     LIMIT 10);
+  --AVG = 0.6643
+
+
+--What is the average energy for the 10 most popular songs?
+SELECT AVG(energy) AS "Avg Energy"
+FROM (SELECT artist_name, track_name, popularity, energy 
+    FROM Spotifydata 
+    ORDER BY popularity DESC 
+    LIMIT 10);
+    --AVG = 0.6828
+
+
+--Find the songs with above average energy and danceabillity, and order by popularity:
+  --AVG energy of top 50 songs:
+  SELECT AVG(energy)
+  FROM Spotifydata
+  --AVG = 0.64636
+
+  --AVG danceability of top 50 songs:
+  SELECT AVG(danceability)
+  FROM Spotifydata
+  --AVG = 0.68572
+
+  SELECT artist_name, track_name, danceability, energy, popularity
+  FROM Spotifydata
+  WHERE energy > 0.64636
+  AND danceability > 0.68572
+  ORDER BY popularity DESC
