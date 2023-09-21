@@ -1,0 +1,59 @@
+# This dataset contains data about the top 50 songs in 2021 from the Spotify music platform:
+
+#TABLE CREATION
+
+CREATE TABLE BIT_DB.Spotifydata (
+  id integer PRIMARY KEY,
+  artist_name varchar NOT NULL,
+  track_name varchar NOT NULL,
+  track_id varchar NOT NULL,
+  popularity integer NOT NULL,
+  danceability decimal(4,3) NOT NULL,
+  energy decimal(4,3) NOT NULL,
+  song_key integer NOT NULL,
+  loudness decimal(5,3) NOT NULL,
+  song_mode integer NOT NULL,
+  speechiness decimal(5,4) NOT NULL,
+  acousticness decimal(6,5) NOT NULL,
+  instrumentalness decimal(8,7) NOT NULL,
+  liveness decimal(5,4) NOT NULL,
+  valence decimal(4,3) NOT NULL,
+  tempo decimal(6,3) NOT NULL,
+  duration_ms integer NOT NULL,
+  time_signature integer NOT NULL )
+
+
+#ANALYSIS
+
+--What is the average danceability by artist?
+SELECT artist_name, AVG(danceability) AS "Avg Danceability"
+FROM Spotifydata
+GROUP BY artist_name
+ORDER BY "Avg Danceability" DESC;
+
+
+--Order the tracks by danceability and find the most danceable song in 2021:
+SELECT artist_name, track_name, danceability
+FROM Spotifydata
+ORDER BY danceability DESC;
+--Most danceable = "Que Mas Pues?" by J Balvin
+
+
+--Who are the top 10 artists based on popularity?
+SELECT artist_name, popularity
+FROM Spotifydata
+ORDER BY popularity DESC
+LIMIT 10;
+
+
+--What artist released the longest song?
+SELECT artist_name, MAX(duration_ms) AS "Longest song"
+FROM Spotifydata;
+
+
+--What's the average danceability for the 10 most popular songs?
+SELECT AVG(danceability) AS "Avg Danceability"
+FROM (SELECT artist_name, track_name, popularity, danceability 
+    FROM Spotifydata 
+    ORDER BY popularity DESC 
+    LIMIT 10);
