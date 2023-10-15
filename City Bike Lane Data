@@ -100,5 +100,15 @@ INSERT INTO BIT_DB.CityBikeLanes values(60,2002, 2021,"Mouse",4.5,4.3,"no");
       FROM AVG_safety
       WHERE rating >= 4.0
       ORDER BY rating DESC
+
+
+--list of all the bike lanes, both safety ratings for each lane given by the two technicians, the average safety rating for each lane, and a label with the recommendation as "Remove", "Leave As-Is", or "Improvements Needed":
+
+SELECT street, safetyrating, AVG(safetyrating) OVER (PARTITION BY street) as "Average_safety_rating",
+CASE WHEN AVG(safetyrating) OVER (PARTITION BY street) >= 4.0 THEN 'Leave As-Is'
+    WHEN AVG(safetyrating) OVER (PARTITION BY street) < 2.5 THEN 'Remove'
+    ELSE 'Improvements Needed'
+    END AS "Recommendation"
+FROM CityBikeLanes
         
 
