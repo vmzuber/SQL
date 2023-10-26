@@ -99,6 +99,15 @@ JOIN artists AS ar ON ar.ArtistId = al.ArtistId
 
 
 --Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre:
+SELECT t.Name AS "Track Name", a.Title AS "Album Title", m.Name AS "Media type", g.Name AS "Genre"
+FROM tracks AS t
+JOIN albums AS a ON t.AlbumId = a.AlbumId
+JOIN media_types AS m ON t.MediaTypeId = m.MediaTypeId
+JOIN genres AS g ON t.GenreId = g.GenreId
+
+
+--Show the total sales made by each sales agent:
+
 
 
 
