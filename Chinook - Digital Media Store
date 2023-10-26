@@ -29,4 +29,21 @@
 
 
 --Show only the Customers from Brazil:
+SELECT CustomerId, FirstName || ' ' || LastName AS "Name", Country
+FROM customers
+WHERE Country = 'Brazil';
+--Can use alt version of CONCAT syntax when not using SQLite Studio
+
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country:
+SELECT c.FirstName || ' ' || LastName AS "Name", i.InvoiceId, i.InvoiceDate, i.BillingCountry
+FROM invoices AS i
+JOIN customers AS c ON i.CustomerId = c.CustomerId
+WHERE i.BillingCountry = 'Brazil'
+ORDER BY "Name";
+
+
+--Show the Employees who are Sales Agents
+
+
 
