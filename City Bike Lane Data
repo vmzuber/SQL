@@ -85,7 +85,7 @@ INSERT INTO BIT_DB.CityBikeLanes values(60,2002, 2021,"Mouse",4.5,4.3,"no");
     FROM CityBikeLanes
     GROUP BY street
     HAVING AVG(safetyrating) >= 4.0
-    ORDER BY AVG(safetyrating) DESC
+    ORDER BY AVG(safetyrating) DESC;
 
     --alternate method of answering the above question using a CTE:
 
@@ -99,7 +99,7 @@ INSERT INTO BIT_DB.CityBikeLanes values(60,2002, 2021,"Mouse",4.5,4.3,"no");
           END AS "Label"
       FROM AVG_safety
       WHERE rating >= 4.0
-      ORDER BY rating DESC
+      ORDER BY rating DESC;
 
 
 --list of all the bike lanes, both safety ratings for each lane given by the two technicians, the average safety rating for each lane, and a label with the recommendation as "Remove", "Leave As-Is", or "Improvements Needed":
@@ -109,6 +109,20 @@ CASE WHEN AVG(safetyrating) OVER (PARTITION BY street) >= 4.0 THEN 'Leave As-Is'
     WHEN AVG(safetyrating) OVER (PARTITION BY street) < 2.5 THEN 'Remove'
     ELSE 'Improvements Needed'
     END AS "Recommendation"
+FROM CityBikeLanes;
+
+
+--list of all the bike lanes that have an average safety rating of 4.0 or higher, then list the average safety rating for each of those bike lanes with a label that says "Safe Lane":
+--Alt answer with the use of a CTE:
+
+WITH avg_safety_rating_cte AS (SELECT street, AVG(safetyrating) AS "AVG safety rating"
 FROM CityBikeLanes
+GROUP BY street)
+
+SELECT street, "AVG safety rating",
+CASE WHEN "AVG safety rating" >=4 THEN 'Safe Lane' END AS "Label"
+FROM avg_safety_rating_cte
+WHERE "AVG safety rating" >= 4
+ORDER BY "AVG safety rating" DESC;
         
 
