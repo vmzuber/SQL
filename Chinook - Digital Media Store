@@ -15,4 +15,18 @@
 
 --DATA ANALYSIS:
 
---Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: != or <> can be used to say "is not equal to").
+
+--Show Customers (their full names, customer ID, and country) who are not in the USA:
+    --SQLite Studio version syntax for CONCAT function:
+        SELECT CustomerId, FirstName || ' ' || LastName AS "Name", Country
+        FROM customers
+        WHERE Country <> 'USA';
+
+    --Alt syntax for CONCAT function:
+        SELECT CustomerId, CONCAT(FirstName, ' ', LastName) AS "Name", Country
+        FROM customers
+        WHERE Country <> 'USA';
+
+
+--Show only the Customers from Brazil:
+
