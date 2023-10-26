@@ -68,7 +68,24 @@ JOIN customers AS c ON i.CustomerId = c.CustomerId
 JOIN employees AS e ON c.SupportRepId = e.EmployeeId
 
 
---How many Invoices were there in 2009?
+--How many Invoices were there in 2009 (2 syntaxes)?
+SELECT InvoiceId, InvoiceDate
+FROM invoices
+WHERE InvoiceDate like '2009%'
+
+SELECT COUNT(InvoiceId)
+FROM invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+
+
+--What are the total sales for 2009?
+SELECT ROUND(SUM(Total), 2) AS "Total Sales"
+FROM invoices
+WHERE InvoiceDate LIKE '2009%'
+
+
+--Write a query that includes the purchased track name with each invoice line ID:
+
 
 
 
